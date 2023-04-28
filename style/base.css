@@ -6,18 +6,20 @@
 
 /* hide only the input of cells with the tag 'hide-input' */
 .cell-tag-celltagsclasses-test1 {
-    padding: 10px;
-    border: 2.5px black solid;
-    border-radius: 10px;
-    background-color: yellow !important;    /* could be overridden if cell is active */
+  padding: 10px;
+  border: 2.5px black solid;
+  border-radius: 10px;
+
+  /* could be overridden if cell is active */
+  background-color: yellow !important;
 }
 
 .cell-tag-celltagsclasses-test2 {
-    background-color: red;                  /* see how it goes if cell is active */
+  /* see how it goes if cell is active */
+  background-color: red;
 }
 
 /* hide the 6-buttons toolbar */
 .cell-tag-celltagsclasses-test2 .jp-cell-toolbar {
-    display: none;
+  display: none;
 }
-
