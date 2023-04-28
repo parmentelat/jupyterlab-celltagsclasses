@@ -9,11 +9,11 @@
     padding: 10px;
     border: 2.5px black solid;
     border-radius: 10px;
-    background-color: yellow;
+    background-color: yellow !important;    /* could be overridden if cell is active */
 }
 
 .cell-tag-celltagsclasses-test2 {
-    background-color: red;
+    background-color: red;                  /* see how it goes if cell is active */
 }
 
 /* hide the 6-buttons toolbar */
