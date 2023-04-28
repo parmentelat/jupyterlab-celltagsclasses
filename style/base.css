@@ -1,0 +1,23 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+/* hide only the input of cells with the tag 'hide-input' */
+.cell-tag-celltagsclasses-test1 {
+    padding: 10px;
+    border: 2.5px black solid;
+    border-radius: 10px;
+    background-color: yellow;
+}
+
+.cell-tag-celltagsclasses-test2 {
+    background-color: red;
+}
+
+/* hide the 6-buttons toolbar */
+.cell-tag-celltagsclasses-test2 .jp-cell-toolbar {
+    display: none;
+}
+
