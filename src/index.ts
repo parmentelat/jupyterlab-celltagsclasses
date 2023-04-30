@@ -76,8 +76,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
               const newTags = change.newValue as string[]
               const addedTags = newTags.filter(tag => !oldTags.includes(tag))
               const removedTags = oldTags.filter(tag => !newTags.includes(tag))
-              console.log('addedTags', addedTags)
-              console.log('removedTags', removedTags)
+              // console.debug('addedTags', addedTags)
+              // console.debug('removedTags', removedTags)
               cellWidgets.forEach(cellWidget => {
                 addedTags.forEach(tag => {
                   console.debug(`adding class for tag ${class_for_tag(tag)}`)
