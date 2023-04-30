@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab-celltagsclasses",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JLAB extension to add classes to cells based on their tags",
   "keywords": [
     "jupyter",
