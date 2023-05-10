@@ -14,8 +14,7 @@ done
 # hatch has the nasty effect of reformatting package.json
 #hatch version $version
 echo "bumping version to $version"
-sed -e 's/\("version": "\)[^"]*/\1'$version'/' package.json > package.json.tmp
-mv package.json.tmp package.json
+sed -i.version -e 's/\("version": "\)[^"]*/\1'$version'/' package.json
 
 echo "diffing package.json"
 git diff package.json
