@@ -26,12 +26,23 @@ pip uninstall jupyterlab_celltagsclasses
 
 ## What it does
 
+### CSS classes
+
 each cell has its widget (the DOM element) classes kept in sync in terms of the cell's tags;  
 for example, adding tag `foobar` will result in the current cell having class `cell-tag-foobar` added
 
 specifically the DOM elements that are decorated have the `.jpCell` class set by jlab, like so, where we have set tag `celltagsclasses-test1`
 
 ![](media/screenshot.png)
+
+### metadata management helper functions
+
+it also exports utilities to manage a cell's metadata, specifically for
+* getting, setting or unsetting a key/value pair
+* adding, removing items in a list inside the metadata (e.g. tags)
+* cleaning the metadata for empty/useless items
+
+to that effect, see the `md_get` and similar functions
 
 ## Development
 
@@ -72,3 +83,20 @@ folder is located. Then you can remove the symlink named `jupyterlab-celltagscla
 ### Packaging the extension
 
 See [RELEASE](RELEASE.md)
+
+## testing
+
+### the metadata module
+
+probably suboptimal but that's my first..
+
+```terminal
+npm install -g typescript '@types/node'
+```
+
+```terminal
+rm src/*js
+tsc src/xpath*ts && node src/xpath-test.js
+```
+
+I have tried to use `ts-node` but to no avail so far
