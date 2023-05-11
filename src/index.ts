@@ -40,27 +40,22 @@ const plugin: JupyterFrontEndPlugin<void> = {
               (cell: Cell, index: number) => cell.model.id === cellModel.id
             )
           if (cellWidgets === undefined || cellWidgets?.length === 0) {
-            console.warn('could not find cell widget for cell model', cellModel)
+            // console.warn('could not find cell widget for cell model', cellModel)
             return
           }
-          console.debug(
-            `found ${cellWidgets?.length} cell widgets`,
-            cellWidgets[0]
-          )
+          // console.debug( `found ${cellWidgets?.length} cell widgets`, cellWidgets[0] )
 
           // add classes for pre-existing tags
           cellModel.getMetadata('tags')?.forEach((tag: string) =>
             cellWidgets?.forEach(cellWidget => {
-              console.debug(
-                `adding initial class for tag ${class_for_tag(tag)}`
-              )
+              // console.debug( `adding initial class for tag ${class_for_tag(tag)}` )
               cellWidget.addClass(class_for_tag(tag))
             })
           )
 
           // react to changes in tags
           cellModel.metadataChanged.connect((sender: ICellModel, change) => {
-            console.debug('metadata changed', sender, change)
+            // console.debug('metadata changed', sender, change)
             if (change.key !== 'tags') {
               // console.debug("ignoring non-tags metadata change")
               return
@@ -70,7 +65,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             //   (cell: Cell, index: number) => (cell.model.id === cellModel.id)
             // )
             if (change.type === 'change') {
-              console.debug('change', change, change.newValue)
+              // console.debug('change', change, change.newValue)
               // compute difference between old and new tags
               const oldTags = change.oldValue as string[]
               const newTags = change.newValue as string[]
@@ -92,7 +87,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
               console.log('add', change, change.newValue)
               cellWidgets.forEach(cellWidget => {
                 for (const tag of change.newValue) {
-                  console.debug(`adding class for tag ${class_for_tag(tag)}`)
+                  // console.debug(`adding class for tag ${class_for_tag(tag)}`)
                   cellWidget.addClass(class_for_tag(tag))
                 }
               })
@@ -100,7 +95,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
               console.log('remove', change, change.newValue)
               cellWidgets.forEach(cellWidget => {
                 for (const tag of change.newValue) {
-                  console.debug(`removing class for tag ${class_for_tag(tag)}`)
+                  // console.debug(`removing class for tag ${class_for_tag(tag)}`)
                   cellWidget.removeClass(class_for_tag(tag))
                 }
               })
