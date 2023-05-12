@@ -1,15 +1,15 @@
 #!/bin/bash
 
+echo "checking for required python packages"
+for pkg in build twine hatch; do
+    pip show $pkg >& /dev/null || pip install $pkg
+done
+
 echo "Current version is: $(hatch version)"
 
 # prompt user for version number
 echo "Enter new version number: "
 read version
-
-echo "checking for required python packages"
-for pkg in build twine hatch; do
-    pip show $pkg >& /dev/null || pip install $pkg
-done
 
 # hatch has the nasty effect of reformatting package.json
 #hatch version $version
