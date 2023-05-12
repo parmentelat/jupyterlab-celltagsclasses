@@ -111,3 +111,5 @@ export default plugin
 
 // re-export metadata helper functions
 export { md_get, md_set, md_unset, md_has, md_insert, md_remove, md_toggle, md_clean } from './metadata'
+
+export { Scope, apply_on_cells } from './apply_on_cells'
