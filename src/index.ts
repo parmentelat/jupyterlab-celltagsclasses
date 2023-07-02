@@ -37,7 +37,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           // compute widgets attached to cellModel
           const cellWidgets =
             notebookTracker.currentWidget?.content.widgets.filter(
-              (cell: Cell, index: number) => cell.model.id === cellModel.id
+              (cell: Cell, index: number) => cell.model.id === cellModel.id,
             )
           if (cellWidgets === undefined || cellWidgets?.length === 0) {
             // console.warn('could not find cell widget for cell model', cellModel)
@@ -50,7 +50,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             cellWidgets?.forEach(cellWidget => {
               // console.debug( `adding initial class for tag ${class_for_tag(tag)}` )
               cellWidget.addClass(class_for_tag(tag))
-            })
+            }),
           )
 
           // react to changes in tags
@@ -104,12 +104,21 @@ const plugin: JupyterFrontEndPlugin<void> = {
         })
       })
     })
-  }
+  },
 }
 
 export default plugin
 
 // re-export metadata helper functions
-export { md_get, md_set, md_unset, md_has, md_insert, md_remove, md_toggle, md_clean } from './metadata'
+export {
+  md_get,
+  md_set,
+  md_unset,
+  md_has,
+  md_insert,
+  md_remove,
+  md_toggle,
+  md_clean,
+} from './metadata'
 
 export { Scope, apply_on_cells } from './apply_on_cells'

@@ -1,7 +1,12 @@
 /* eslint-disable prettier/prettier */
 
 import {
-    xpath_get, xpath_set, xpath_unset,  xpath_insert, xpath_remove, xpath_clean,
+  xpath_get,
+  xpath_set,
+  xpath_unset,
+  xpath_insert,
+  xpath_remove,
+  xpath_clean,
 } from './xpath'
 
 /* not guaranteed to work by side-effects only */
@@ -9,8 +14,8 @@ let md = {}
 
 // uncomment to debug
 const checkpoint = (md: Record<string, any>, message: string) => {
-    // console.log('------', message, '\n', JSON.stringify(md))
-    message
+  // console.log('------', message, '\n', JSON.stringify(md))
+  message
 }
 
 console.assert(xpath_get(md, 'simple') === undefined, '001')
@@ -50,7 +55,10 @@ checkpoint(md, 'jupyter.source_hidden=true')
 
 // cannot insert in pre-existing non-array
 console.assert(xpath_insert(md, 'jupyter', 'anything') === undefined, '041')
-console.assert(xpath_insert(md, 'jupyter.source_hidden', 'anything') === undefined, '042')
+console.assert(
+  xpath_insert(md, 'jupyter.source_hidden', 'anything') === undefined,
+  '042',
+)
 
 checkpoint(md, 'same')
 
@@ -81,44 +89,50 @@ console.assert(xpath_get(md, 'hide_input') === undefined, '074')
 
 checkpoint(md, 'unchanged')
 
-const xpaths = [ 'empty-list', 'nested.empty-list' ]
+const xpaths = ['empty-list', 'nested.empty-list']
 for (const xpath of xpaths) {
-    console.assert(xpath_insert(md, xpath, 'foo') === 'foo', '081')
-    console.assert(xpath_insert(md, xpath, 'bar') === 'bar', '082')
-    console.assert(xpath_remove(md, xpath, 'foo') === 'foo', '083')
-    console.assert(xpath_remove(md, xpath, 'bar') === 'bar', '084')
-    md = xpath_clean(md, '')
-    console.assert(xpath_get(md, xpath) === undefined, '085')
-    checkpoint(md, `unchanged after inserting/cleaning in ${xpath}`)
+  console.assert(xpath_insert(md, xpath, 'foo') === 'foo', '081')
+  console.assert(xpath_insert(md, xpath, 'bar') === 'bar', '082')
+  console.assert(xpath_remove(md, xpath, 'foo') === 'foo', '083')
+  console.assert(xpath_remove(md, xpath, 'bar') === 'bar', '084')
+  md = xpath_clean(md, '')
+  console.assert(xpath_get(md, xpath) === undefined, '085')
+  checkpoint(md, `unchanged after inserting/cleaning in ${xpath}`)
 }
 
 ////////////////////////////////////////
 
 const md2 = {
-    'cells': [
-    ],
-    'metadata': {
-        'kernelspec': {},
-        'language_info': [],
-    },
+  cells: [],
+  metadata: {
+    kernelspec: {},
+    language_info: [],
+  },
 }
 
-console.assert(JSON.stringify(xpath_clean(md2, '')) === "{}", '091')
-console.assert(JSON.stringify(xpath_clean(md2, 'cells')) === "[]", '092')
-console.assert(JSON.stringify(xpath_clean(md2, 'metadata')) === "{}", '093')
-console.assert(JSON.stringify(xpath_clean(md2, 'metadata.kernelspec')) === '{"cells":[],"metadata":{}}', '094')
-
+console.assert(JSON.stringify(xpath_clean(md2, '')) === '{}', '091')
+console.assert(JSON.stringify(xpath_clean(md2, 'cells')) === '[]', '092')
+console.assert(JSON.stringify(xpath_clean(md2, 'metadata')) === '{}', '093')
+console.assert(
+  JSON.stringify(xpath_clean(md2, 'metadata.kernelspec')) ===
+    '{"cells":[],"metadata":{}}',
+  '094',
+)
 
 const md3 = {
+  'empty-string': '',
+  metadata: {
+    kernelspec: {},
+    language_info: [],
     'empty-string': '',
-    'metadata': {
-        'kernelspec': {},
-        'language_info': [],
-        'empty-string': "",
-    },
+  },
 }
 
-console.assert(JSON.stringify(xpath_clean(md3, '')) === "{}", '101')
+console.assert(JSON.stringify(xpath_clean(md3, '')) === '{}', '101')
 console.assert(JSON.stringify(xpath_clean(md3, 'empty-string')) === '""', '102')
-console.assert(JSON.stringify(xpath_clean(md3, 'metadata')) === "{}", '103')
-console.assert(JSON.stringify(xpath_clean(md3, 'metadata.kernelspec')) === '{"empty-string":"","metadata":{}}', '104')
+console.assert(JSON.stringify(xpath_clean(md3, 'metadata')) === '{}', '103')
+console.assert(
+  JSON.stringify(xpath_clean(md3, 'metadata.kernelspec')) ===
+    '{"empty-string":"","metadata":{}}',
+  '104',
+)

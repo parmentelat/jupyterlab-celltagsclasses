@@ -39,9 +39,9 @@ specifically the DOM elements that are decorated have the `.jpCell` class set by
 
 it also exports utilities to manage a cell's metadata, specifically for
 
-* getting, setting or unsetting a key/value pair
-* adding, removing items in a list inside the metadata (e.g. tags)
-* cleaning the metadata for empty/useless items
+- getting, setting or unsetting a key/value pair
+- adding, removing items in a list inside the metadata (e.g. tags)
+- cleaning the metadata for empty/useless items
 
 to that effect, see the `md_get` and similar functions in `metadata.ts` (that can be imported right from the module)
 
@@ -49,9 +49,9 @@ to that effect, see the `md_get` and similar functions in `metadata.ts` (that ca
 
 the `apply_on_cells` function allows you to write a function that works on an individual cell, and then call it on either
 
-* the active cell only
-* all the selected cells if relevant, otherwise the active cell
-* all the cells in the notebook
+- the active cell only
+- all the selected cells if relevant, otherwise the active cell
+- all the cells in the notebook
 
 for that you can pass it a `Scope` value that can be either `Active`, `Multiple`, or `All`
 

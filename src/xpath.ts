@@ -6,16 +6,14 @@
 // in this module we are only concerned about doing side effects
 // in a JavaScript object
 
-
 // what to do on the passed object
 enum Action {
-  Get,      // get the metadata at that xpath
-  Set,      // set the metadata at that xpath
-  Unset,    // undo the set operation
-  Insert,   // insert the value inside that xpath (should point to a list)
-  Remove,   // undo insert
+  Get, // get the metadata at that xpath
+  Set, // set the metadata at that xpath
+  Unset, // undo the set operation
+  Insert, // insert the value inside that xpath (should point to a list)
+  Remove, // undo insert
 }
-
 
 export type XpathMap = Record<string, any>
 export type Xpath = string | string[]
@@ -35,15 +33,13 @@ export const normalize = (xpath: Xpath): string[] => {
   }
 }
 
-
 const _manage_metadata = (
-  data: XpathMap,      // intended to be cell.metadata
+  data: XpathMap, // intended to be cell.metadata
   action: Action,
   xpath: Xpath,
   value: any,
 ): any => {
-
-  const { Get, Set, Unset, Insert, Remove, } = Action
+  const { Get, Set, Unset, Insert, Remove } = Action
 
   const recurse = (
     scanner: XpathMap,
@@ -51,7 +47,6 @@ const _manage_metadata = (
     xpath: string[],
     value: any,
   ): any => {
-
     // console.log(`in recurse with xpath=${xpath}`)
 
     if (xpath.length === 0) {
@@ -99,7 +94,7 @@ const _manage_metadata = (
           if (!(scanner[step] instanceof Array)) {
             return undefined
           }
-          const list = (scanner[step]) as string[]
+          const list = scanner[step] as string[]
           // list.pop(value) is not accepted by ts ?!?
           const index = list.indexOf(value)
           if (index >= 0) {
@@ -147,20 +142,19 @@ const _manage_metadata = (
 }
 
 const _clean_metadata = (data: XpathMap, xpath: Xpath): XpathMap => {
-
-  const not_empty = (x: any) : boolean => {
+  const not_empty = (x: any): boolean => {
     if (x instanceof Array) {
       return x.length !== 0
     } else if (x instanceof Object) {
       return Object.keys(x).length !== 0
-    } else if ((typeof x) === 'string') {
+    } else if (typeof x === 'string') {
       return x.length !== 0
     } else {
       return true
     }
   }
 
-  const clean_array = (data: any[]) : any[] => {
+  const clean_array = (data: any[]): any[] => {
     return data.map(clean).filter(not_empty)
   }
   const clean_object = (data: Record<string, any>): Record<string, any> => {
@@ -176,7 +170,6 @@ const _clean_metadata = (data: XpathMap, xpath: Xpath): XpathMap => {
   }
 
   const clean = (data: any[] | Record<string, any>) => {
-
     if (data instanceof Array) {
       return clean_array(data)
     } else if (data instanceof Object) {
@@ -200,7 +193,6 @@ const _clean_metadata = (data: XpathMap, xpath: Xpath): XpathMap => {
     }
   }
 }
-
 
 export const xpath_get = (metadata: XpathMap, xpath: Xpath) =>
   _manage_metadata(metadata, Action.Get, xpath, undefined)

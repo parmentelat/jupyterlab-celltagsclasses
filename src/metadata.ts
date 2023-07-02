@@ -33,18 +33,27 @@
 //              md_clean(cell, "")
 //          will alter the cell's metadata so as to remove empty lists or empty keys
 
-
 import { ICellModel, Cell } from '@jupyterlab/cells'
 
 import {
-  XpathMap, Xpath, normalize,
-  xpath_get, xpath_set, xpath_unset, xpath_insert, xpath_remove, xpath_clean
+  XpathMap,
+  Xpath,
+  normalize,
+  xpath_get,
+  xpath_set,
+  xpath_unset,
+  xpath_insert,
+  xpath_remove,
+  xpath_clean,
 } from './xpath'
-
 
 // atomic values
 
-export const md_get = (cell: Cell | ICellModel, xpath: Xpath, if_missing?: any): any => {
+export const md_get = (
+  cell: Cell | ICellModel,
+  xpath: Xpath,
+  if_missing?: any,
+): any => {
   if (cell instanceof Cell) {
     cell = cell.model
   }
@@ -90,7 +99,6 @@ export const md_unset = (cell: Cell, xpath: Xpath): boolean => {
   }
 }
 
-
 // lists (e.g. tags)
 
 export const md_has = (cell: Cell, xpath: Xpath, key: string) => {
@@ -113,7 +121,7 @@ export const md_insert = (cell: Cell, xpath: Xpath, key: string) => {
 
   const start = cell.model.getMetadata(first)
   if (tail.length === 0) {
-    let sublist : Array<string>
+    let sublist: Array<string>
     if (start !== undefined) {
       sublist = start as Array<string>
       // use another object as otherwise .setMetadata() does not seem to propagate
@@ -136,7 +144,7 @@ export const md_insert = (cell: Cell, xpath: Xpath, key: string) => {
   }
 }
 
-export const md_remove = (cell: Cell, xpath: Xpath, key:string) => {
+export const md_remove = (cell: Cell, xpath: Xpath, key: string) => {
   xpath = normalize(xpath)
   const [first, ...tail] = xpath
   const start = cell.model.getMetadata(first)
@@ -168,15 +176,14 @@ export const md_remove = (cell: Cell, xpath: Xpath, key:string) => {
 
 export const md_toggle = (cell: Cell, xpath: Xpath, key: string) => {
   xpath = normalize(xpath)
-  if ( ! md_has(cell, xpath, key)) {
+  if (!md_has(cell, xpath, key)) {
     return md_insert(cell, xpath, key)
   } else {
     return md_remove(cell, xpath, key)
   }
 }
 
-
-export const md_clean = (cell:Cell, xpath: Xpath) => {
+export const md_clean = (cell: Cell, xpath: Xpath) => {
   xpath = normalize(xpath)
   const [first, ...tail] = xpath
   if (first === undefined) {
@@ -184,8 +191,8 @@ export const md_clean = (cell:Cell, xpath: Xpath) => {
     // no xpath, clean the whole metadata
     for (const key of Object.entries(cell.model.metadata)) {
       const xpath = key as Xpath
-      const new_value = xpath_clean(md_get(cell, xpath), "")
-      if ((new_value === undefined) || (new_value.length === 0)) {
+      const new_value = xpath_clean(md_get(cell, xpath), '')
+      if (new_value === undefined || new_value.length === 0) {
         md_unset(cell, xpath)
       } else {
         md_set(cell, xpath, new_value)
@@ -194,7 +201,7 @@ export const md_clean = (cell:Cell, xpath: Xpath) => {
   } else {
     const subtree = md_get(cell, first)
     const new_value = xpath_clean(subtree, tail)
-    if ((new_value === undefined) || (new_value.length === 0)) {
+    if (new_value === undefined || new_value.length === 0) {
       md_unset(cell, first)
     } else {
       md_set(cell, first, new_value)
