@@ -1,5 +1,6 @@
 # Changelog
 
-<!-- <START NEW CHANGELOG ENTRY> -->
+## 0.3.1 2023 Jul 2
 
-<!-- <END NEW CHANGELOG ENTRY> -->
+* initial release
+* requires jlab4
