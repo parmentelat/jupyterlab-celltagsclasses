@@ -4,7 +4,6 @@
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
 
-/* hide only the input of cells with the tag 'hide-input' */
 .cell-tag-celltagsclasses-test1 {
   padding: 10px;
   border: 2.5px black solid;
