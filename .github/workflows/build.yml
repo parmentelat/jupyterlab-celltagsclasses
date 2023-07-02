@@ -77,7 +77,7 @@ jobs:
 
           jupyter labextension list
           jupyter labextension list 2>&1 | grep -ie "jupyterlab-celltagsclasses.*OK"
-          python -m jupyterlab.browser_check --no-chrome-test
+          python -m jupyterlab.browser_check
 
   check_links:
     name: Check Links
