@@ -84,7 +84,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 })
               })
             } else if (change.type === 'add') {
-              console.log('add', change, change.newValue)
+              console.debug('celltagsclasses: add', change, change.newValue)
               cellWidgets.forEach(cellWidget => {
                 for (const tag of change.newValue) {
                   // console.debug(`adding class for tag ${class_for_tag(tag)}`)
@@ -92,7 +92,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 }
               })
             } else if (change.type === 'remove') {
-              console.log('remove', change, change.newValue)
+              console.debug('celltagsclasses: remove', change, change.newValue)
               cellWidgets.forEach(cellWidget => {
                 for (const tag of change.newValue) {
                   // console.debug(`removing class for tag ${class_for_tag(tag)}`)
