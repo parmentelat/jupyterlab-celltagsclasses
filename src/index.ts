@@ -118,6 +118,7 @@ export {
   md_insert,
   md_remove,
   md_toggle,
+  md_toggle_multi,
   md_clean,
 } from './metadata'
 

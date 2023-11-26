@@ -25,6 +25,8 @@
 //         e.g. md_remove(cell, "path.to.tags", "removed-tag")
 // (*) md_toggle: toggle a value in a metadata list
 //         e.g. md_toggle(cell, "path.to.tags", "toggled-tag")
+// (*) md_toggle_multi: toggle a value in a metadata list,
+//        removing the other values in the lists
 //
 // clean up
 // (*) md_clean: remove empty metadata elements
@@ -181,6 +183,27 @@ export const md_toggle = (cell: Cell, xpath: Xpath, key: string) => {
   } else {
     return md_remove(cell, xpath, key)
   }
+}
+
+/*
+ * given a within_set of mututally exclusive keys
+ * e.g. within_set = ['level1', 'level2', 'level3']
+ * and a key to toggle
+ * md_toggle_multi will toggle the key and unset the other keys
+ * in the event where key is not in within_set
+ * the effect of this function is to clear all keys in within_set
+ */
+
+export const md_toggle_multi = (
+  cell: Cell, xpath: Xpath, key: string, within_set: Array<string>) => {
+    if (within_set.includes(key)) {
+      md_toggle(cell, xpath, key)
+    }
+    for (const other_key of within_set) {
+      if (other_key !== key) {
+        md_remove(cell, xpath, other_key)
+      }
+    }
 }
 
 export const md_clean = (cell: Cell, xpath: Xpath) => {
