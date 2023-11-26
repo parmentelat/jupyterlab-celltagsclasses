@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 2023 Nov 26
+## 0.4.3 2023 Nov 26
 
 - export md_toggle_multi
 
