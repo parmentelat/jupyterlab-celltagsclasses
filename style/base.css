@@ -18,7 +18,12 @@
   background-color: red;
 }
 
+.cell-tag-celltagsclasses-test1.cell-tag-celltagsclasses-test2 {
+  background-color: orange !important;
+}
+
 /* hide the 6-buttons toolbar */
 .cell-tag-celltagsclasses-test2 .jp-cell-toolbar {
   display: none;
 }
+
