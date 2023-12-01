@@ -36,7 +36,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         change.newValues.forEach(cellModel => {
           // compute widgets attached to cellModel
           const cellWidgets =
-            notebookTracker.currentWidget?.content.widgets.filter(
+            panel.content.widgets.filter(
               (cell: Cell, index: number) => cell.model.id === cellModel.id,
             )
           if (cellWidgets === undefined || cellWidgets?.length === 0) {
@@ -61,7 +61,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
               return
             }
             // does not seem useful to recompute this
-            // const cellWidgets = notebookTracker.currentWidget?.content.widgets.filter(
+            // const cellWidgets = panel.content.widgets.filter(
             //   (cell: Cell, index: number) => (cell.model.id === cellModel.id)
             // )
             if (change.type === 'change') {
