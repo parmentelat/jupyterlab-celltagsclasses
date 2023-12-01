@@ -122,3 +122,6 @@ dmypy.json
 .DS_Store
 
 .yarn/
+.macnb/
+yarn.lock
+src/*.js
