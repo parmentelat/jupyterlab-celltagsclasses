@@ -13,6 +13,10 @@ export enum Scope {
   Multiple, // the multiple selected if that is the case, the active cell otherwise
 }
 
+// because this function is designed to define global commands
+// we always act on notebookTracker.currentWidget
+// i.e. the currently active notebook panel
+
 export const apply_on_cells = (
   notebookTracker: INotebookTracker,
   scope: Scope,
@@ -20,6 +24,7 @@ export const apply_on_cells = (
 ) => {
   const notebook = notebookTracker.currentWidget?.content
   if (notebook === undefined) {
+    // not focusing on a notebook..
     return
   }
 

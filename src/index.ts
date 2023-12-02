@@ -6,10 +6,14 @@
 /* eslint-disable prettier/prettier */
 
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application'
-
 import { INotebookTracker } from '@jupyterlab/notebook'
-
 import { ICellModel, Cell } from '@jupyterlab/cells'
+import { ICommandPalette } from '@jupyterlab/apputils'
+
+import { create_test_commands } from './test_commands'
+
+// turn that to true to do manual tests of apply_on_cells
+const SHIP_TEST_COMMANDS = true
 
 /**
  * Initialization data for the jupyterlab-celltagsclasses extension.
@@ -17,9 +21,17 @@ import { ICellModel, Cell } from '@jupyterlab/cells'
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-celltagsclasses:plugin',
   autoStart: true,
-  requires: [INotebookTracker],
-  activate: (app: JupyterFrontEnd, notebookTracker: INotebookTracker) => {
+  requires: [INotebookTracker, ICommandPalette],
+  activate: (
+    app: JupyterFrontEnd,
+    notebookTracker: INotebookTracker,
+    palette: ICommandPalette,
+  ) => {
     console.log('extension jupyterlab-celltagsclasses is activating')
+
+    if (SHIP_TEST_COMMANDS) {
+      create_test_commands(app, notebookTracker, palette)
+    }
 
     const class_for_tag = (tag: string) => `cell-tag-${tag}`
 
@@ -36,8 +48,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
         change.newValues.forEach(cellModel => {
           // compute widgets attached to cellModel
           const cellWidgets = panel.content.widgets.filter(
-              (cell: Cell, index: number) => cell.model.id === cellModel.id,
-            )
+            (cell: Cell, index: number) => cell.model.id === cellModel.id,
+          )
           if (cellWidgets === undefined || cellWidgets?.length === 0) {
             // console.warn('could not find cell widget for cell model', cellModel)
             return
