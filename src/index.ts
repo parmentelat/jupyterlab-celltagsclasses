@@ -35,8 +35,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         }
         change.newValues.forEach(cellModel => {
           // compute widgets attached to cellModel
-          const cellWidgets =
-            panel.content.widgets.filter(
+          const cellWidgets = panel.content.widgets.filter(
               (cell: Cell, index: number) => cell.model.id === cellModel.id,
             )
           if (cellWidgets === undefined || cellWidgets?.length === 0) {

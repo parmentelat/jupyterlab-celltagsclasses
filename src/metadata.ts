@@ -195,15 +195,19 @@ export const md_toggle = (cell: Cell, xpath: Xpath, key: string) => {
  */
 
 export const md_toggle_multi = (
-  cell: Cell, xpath: Xpath, key: string, within_set: Array<string>) => {
-    if (within_set.includes(key)) {
-      md_toggle(cell, xpath, key)
+  cell: Cell,
+  xpath: Xpath,
+  key: string,
+  within_set: Array<string>,
+) => {
+  if (within_set.includes(key)) {
+    md_toggle(cell, xpath, key)
+  }
+  for (const other_key of within_set) {
+    if (other_key !== key) {
+      md_remove(cell, xpath, other_key)
     }
-    for (const other_key of within_set) {
-      if (other_key !== key) {
-        md_remove(cell, xpath, other_key)
-      }
-    }
+  }
 }
 
 export const md_clean = (cell: Cell, xpath: Xpath) => {
